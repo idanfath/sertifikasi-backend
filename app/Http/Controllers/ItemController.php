@@ -29,7 +29,7 @@ class ItemController extends Controller
         $v = $r->validate([
             'name' => 'required',
             'stock' => 'required|min:1|numeric',
-            'price' => 'required|float',
+            'price' => 'required|numeric',
             'sku' => 'required'
         ]);
 
