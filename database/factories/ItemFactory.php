@@ -17,11 +17,13 @@ class ItemFactory extends Factory
      */
     public function definition(): array
     {
-        $name = $this->faker->name();
+        $name = $this->faker->unique()->words(3, true);
+
         return [
+
             'name' => $name,
             'stock' => $this->faker->numberBetween(1, 100),
-            'price' => $this->faker->numberBetween(1000, 200000),
+            'price' => $this->faker->numberBetween(1000, 20000),
             'sku' => Str::slug($name)
         ];
     }

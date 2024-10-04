@@ -7,12 +7,23 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+    public function skuCheck($sku)
+    {
+        return response()->json([
+            'data' => Item::where('sku', $sku)->exists()
+        ], 200);
+    }
+
     public function index(Request $r)
     {
         $item = Item::query();
         if ($r->search) {
-            $item->where('name', 'like', '%' . $r->search . '%');
+            $item->where('name', 'ilike', '%' . $r->search . '%')
+                ->orWhere('sku', 'ilike', '%' . $r->search . '%');
         }
+
+        $item->orderBy('updated_at', 'desc');
+
         $result = $item->paginate($r->limit ?? 10);
         return response()->json([
             'data' => $result
@@ -30,7 +41,7 @@ class ItemController extends Controller
             'name' => 'required',
             'stock' => 'required|min:1|numeric',
             'price' => 'required|numeric',
-            'sku' => 'required'
+            'sku' => 'required|unique:items,sku',
         ]);
 
         return response()->json([
@@ -55,9 +66,8 @@ class ItemController extends Controller
             'id.*' => 'required|exists:items,id'
         ]);
 
-        foreach ($v['id'] as $item) {
-            Item::find($item)->delete();
-        }
+        Item::destroy($v['id']);
+
 
         return response()->json([
             'message' => 'success deleting'

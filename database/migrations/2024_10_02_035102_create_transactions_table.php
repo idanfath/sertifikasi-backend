@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
             $table->string('invoice');
-            $table->decimal('total', 10, 2);
+            $table->decimal('paid_amount', 12, 2);
+            $table->decimal('change', 12, 2);
+            $table->decimal('total', 12, 2);
             $table->foreignId('user_id')->constrained()->onDelete('set null');
             $table->json('items');
             $table->timestamps();

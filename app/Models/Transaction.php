@@ -12,7 +12,18 @@ class Transaction extends Model
     protected $fillable = [
         'invoice',
         'total',
+        'paid_amount',
+        'change',
         'user_id',
         'items'
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    protected $casts = [
+        'items' => 'array',
     ];
 }
