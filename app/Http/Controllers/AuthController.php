@@ -32,17 +32,7 @@ class AuthController extends Controller
         ], 200);
     }
 
-    public function register(Request $r)
-    {
-        $v = $r->validate([
-            'username' => 'required|min:3|unique:users,username',
-            'password' => 'required|min:8|confirmed',
-        ]);
 
-        return response()->json([
-            'user' => User::create($v),
-        ], 200);
-    }
 
     public function logout(Request $r)
     {

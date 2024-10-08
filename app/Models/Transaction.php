@@ -13,6 +13,9 @@ class Transaction extends Model
         'invoice',
         'total',
         'paid_amount',
+        'subtotal',
+        'discount',
+        'coupon_id',
         'change',
         'user_id',
         'items'
@@ -26,4 +29,9 @@ class Transaction extends Model
     protected $casts = [
         'items' => 'array',
     ];
+
+    public function coupon()
+    {
+        return $this->belongsTo(Coupon::class);
+    }
 }

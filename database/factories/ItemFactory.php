@@ -17,7 +17,10 @@ class ItemFactory extends Factory
      */
     public function definition(): array
     {
-        $name = $this->faker->unique()->words(3, true);
+        $itemOptions = ['T-Shirt', 'Pants', 'Shoes', 'Hat', 'Jacket', 'Socks', 'Gloves', 'Scarf', 'Belt', 'Sunglasses'];
+        $colorOptions = ['Red', 'Blue', 'Green', 'Yellow', 'Black', 'White', 'Gray', 'Brown', 'Purple', 'Orange'];
+
+        $name = $this->faker->randomElement($colorOptions) . ' ' . $this->faker->randomElement($itemOptions) . ' ' . $this->faker->words(2, true);
 
         return [
 

@@ -17,6 +17,9 @@ return new class extends Migration
             $table->decimal('paid_amount', 12, 2);
             $table->decimal('change', 12, 2);
             $table->decimal('total', 12, 2);
+            $table->foreignId('coupon_id')->nullable()->constrained()->onDelete('set null');
+            $table->decimal('subtotal', 12, 2);
+            $table->decimal('discount', 12, 2)->default(0);
             $table->foreignId('user_id')->constrained()->onDelete('set null');
             $table->json('items');
             $table->timestamps();

@@ -28,6 +28,7 @@ class TransactionFactory extends Factory
             $this->faker->numberBetween(1, $randomItems[2]->stock),
         ];
         $total = $randomItems[0]->price * $amount[0] + $randomItems[1]->price * $amount[1] + $randomItems[2]->price * $amount[2];
+        $subtotal = $total;
         $paidAmount = $this->faker->randomElement([0, 20, 5, 10, 25, 50, 100]) * 1000 + $total;
         $paidAmount = ceil($paidAmount / 1000) * 1000;
         $change = $paidAmount - $total;
@@ -39,6 +40,7 @@ class TransactionFactory extends Factory
             'user_id' => 1,
             'paid_amount' => $paidAmount,
             'change' => $change,
+            'subtotal' => $subtotal,
             'items' => [
                 [
                     'id' => $randomItems[0]->id,
